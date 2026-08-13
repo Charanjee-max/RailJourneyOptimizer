@@ -1,1 +1,3 @@
-export const calculateJourneyScore = () => {};
+export function calculateJourneyScore(option) {
+  return 0;
+}
