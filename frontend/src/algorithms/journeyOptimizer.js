@@ -1,21 +1,29 @@
+import { calculateJourneyScore } from "./journeyScore";
+
 export function optimizeJourney(route, vacantBerths, request) {
-  // Step 1
-  const possibleOptions = [];
 
-  // Step 2
-  // Analyze every vacant berth
+    const options = [];
 
-  // Step 3
-  // Find possible ticket combinations
+    for (const berth of vacantBerths) {
 
-  // Step 4
-  // Calculate journey score
+        if (
+            berth.fromStation === request.boardingStation &&
+            berth.toStation === request.destinationStation
+        ) {
 
-  // Step 5
-  // Sort by best option
+            const option = {
+                tickets: [berth],
+                seatChanges: 0,
+                mixedClass: false
+            };
 
-  // Step 6
-  // Return top recommendations
+            option.journeyScore = calculateJourneyScore(option);
 
-  return possibleOptions;
+            options.push(option);
+        }
+    }
+
+    options.sort((a, b) => b.journeyScore - a.journeyScore);
+
+    return options;
 }
