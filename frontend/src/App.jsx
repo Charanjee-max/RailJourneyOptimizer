@@ -1,27 +1,25 @@
-import './App.css'
+import './index.css'
 
 function App() {
   return (
     <div className="app">
-      <header>
-        <h1>🚆 RailJourneyOptimizer</h1>
-        <p>Intelligent Railway Journey Optimization Platform</p>
+
+      <header className="navbar">
+        <h2>🚆 RailJourneyOptimizer</h2>
       </header>
 
-      <main>
-        <h2>Welcome!</h2>
+      <section className="hero">
+
+        <h1>Emergency Railway Journey Assistant</h1>
 
         <p>
-          This application helps Indian Railway passengers find the best ticket
-          combinations after chart preparation during emergency travel.
+          Find the best journey options after chart preparation using intelligent seat optimization.
         </p>
 
-        <button>Start Journey Search</button>
-      </main>
+        <button>Get Started</button>
 
-      <footer>
-        <p>Developed by G. Charan Jee</p>
-      </footer>
+      </section>
+
     </div>
   )
 }
