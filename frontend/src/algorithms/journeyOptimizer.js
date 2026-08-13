@@ -4,6 +4,7 @@ export function optimizeJourney(route, vacantBerths, request) {
 
     const options = [];
 
+    // Direct Journey
     for (const berth of vacantBerths) {
 
         if (
@@ -23,7 +24,34 @@ export function optimizeJourney(route, vacantBerths, request) {
         }
     }
 
+    // Two Ticket Journey
+    for (const first of vacantBerths) {
+
+        if (first.fromStation !== request.boardingStation) continue;
+
+        for (const second of vacantBerths) {
+
+            if (
+                first.toStation === second.fromStation &&
+                second.toStation === request.destinationStation
+            ) {
+
+                const option = {
+                    tickets: [first, second],
+                    seatChanges:
+                        first.coach === second.coach ? 1 : 2,
+                    mixedClass: false
+                };
+
+                option.journeyScore =
+                    calculateJourneyScore(option);
+
+                options.push(option);
+            }
+        }
+    }
+
     options.sort((a, b) => b.journeyScore - a.journeyScore);
 
-    return options;
+    return options.slice(0, 2);
 }
