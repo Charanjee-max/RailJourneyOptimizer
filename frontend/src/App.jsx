@@ -8,17 +8,40 @@ function App() {
         <h2>🚆 RailJourneyOptimizer</h2>
       </header>
 
-      <section className="hero">
+      <div className="container">
 
-        <h1>Emergency Railway Journey Assistant</h1>
+        <div className="search-card">
 
-        <p>
-          Find the best journey options after chart preparation using intelligent seat optimization.
-        </p>
+          <h1>Emergency Railway Journey Assistant</h1>
 
-        <button>Get Started</button>
+          <p>
+            Search journey after chart preparation
+          </p>
 
-      </section>
+          <input type="text" placeholder="Train Number" />
+
+          <input type="text" placeholder="Boarding Station" />
+
+          <input type="text" placeholder="Destination Station" />
+
+          <input type="date" />
+
+          <select>
+            <option>2A</option>
+            <option>3A</option>
+            <option>SL</option>
+          </select>
+
+          <div className="checkbox">
+            <input type="checkbox" />
+            <label>Allow Mixed Class</label>
+          </div>
+
+          <button>Analyze Journey</button>
+
+        </div>
+
+      </div>
 
     </div>
   )
