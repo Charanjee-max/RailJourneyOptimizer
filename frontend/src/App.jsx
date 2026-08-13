@@ -1,12 +1,11 @@
 import './index.css'
+import Navbar from './components/Navbar'
 
 function App() {
   return (
     <div className="app">
 
-      <header className="navbar">
-        <h2>🚆 RailJourneyOptimizer</h2>
-      </header>
+      <Navbar />
 
       <div className="container">
 
