@@ -2,6 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
+const trainController = require("../controllers/trainController");
+
 router.get("/health", (req, res) => {
 
     res.json({
@@ -10,5 +12,7 @@ router.get("/health", (req, res) => {
     });
 
 });
+
+router.get("/:number", trainController.getTrainSchedule);
 
 module.exports = router;
