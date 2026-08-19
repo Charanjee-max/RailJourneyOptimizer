@@ -1,106 +1,134 @@
+/* ---------- Global ---------- */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
 }
 
 body{
-    background:#f4f6f9;
+    background:#f3f6fb;
+    color:#1f2937;
 }
 
-.navbar{
-    background:#0B5ED7;
-    color:white;
-    padding:20px 50px;
-}
+/* ---------- Layout ---------- */
 
-.hero{
-    height:85vh;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    text-align:center;
-}
-
-.hero h1{
-    font-size:52px;
-    margin-bottom:20px;
-}
-
-.hero p{
-    width:700px;
-    font-size:20px;
-    color:#555;
-    margin-bottom:40px;
-}
-
-button{
-    background:#0B5ED7;
-    color:white;
-
-    border:none;
-
-    padding:15px 40px;
-
-    font-size:18px;
-
-    border-radius:8px;
-
-    cursor:pointer;
-}
-
-button:hover{
-    background:#084298;
-}
 .container{
+    width:100%;
     display:flex;
     justify-content:center;
-    margin-top:40px;
+    padding:40px 20px;
 }
+
+/* ---------- Search Card ---------- */
 
 .search-card{
 
-    background:white;
+    width:100%;
+    max-width:700px;
 
-    width:550px;
+    background:#ffffff;
 
-    padding:40px;
+    border-radius:18px;
 
-    border-radius:15px;
+    padding:35px;
 
-    box-shadow:0 0 20px rgba(0,0,0,.1);
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.08);
 
 }
 
+/* ---------- Headings ---------- */
+
 .search-card h1{
+
+    color:#0B5ED7;
+
+    text-align:center;
+
     margin-bottom:10px;
+
 }
 
 .search-card p{
+
+    text-align:center;
+
     color:#666;
+
     margin-bottom:25px;
+
 }
+
+/* ---------- Inputs ---------- */
 
 .search-card input,
 .search-card select{
 
     width:100%;
 
-    padding:15px;
+    padding:14px;
 
     margin-bottom:18px;
 
-    border:1px solid #ccc;
+    border:1px solid #d7dce5;
 
-    border-radius:8px;
+    border-radius:10px;
 
     font-size:16px;
 
+    transition:.25s;
+
 }
+
+.search-card input:focus,
+.search-card select:focus{
+
+    outline:none;
+
+    border-color:#0B5ED7;
+
+    box-shadow:
+        0 0 0 3px rgba(11,94,215,.15);
+
+}
+
+/* ---------- Buttons ---------- */
+
+button{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#0B5ED7;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+button:hover{
+
+    background:#084298;
+
+    transform:translateY(-2px);
+
+}
+
+/* ---------- Checkbox ---------- */
 
 .checkbox{
 
@@ -114,8 +142,375 @@ button:hover{
 
 }
 
-.search-card button{
+.checkbox input{
 
+    width:auto;
+
+}
+
+/* ---------- Train Card ---------- */
+
+.train-card{
+
+    margin-top:25px;
+
+    margin-bottom:25px;
+
+    background:#eef5ff;
+
+    border-left:6px solid #0B5ED7;
+
+    border-radius:14px;
+
+    padding:20px;
+
+}
+
+.train-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+.train-number{
+
+    background:#0B5ED7;
+
+    color:white;
+
+    padding:8px 14px;
+
+    border-radius:20px;
+
+    font-weight:bold;
+
+}
+
+.train-route{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.station-box{
+
+    flex:1;
+
+    text-align:center;
+
+}
+
+.station-box h4{
+
+    color:#777;
+
+    margin-bottom:6px;
+
+}
+
+.station-box strong{
+
+    font-size:18px;
+
+    color:#111;
+
+}
+
+.station-box p{
+
+    margin-top:5px;
+
+    font-size:14px;
+
+    color:#666;
+
+}
+
+.route-arrow{
+
+    font-size:30px;
+
+    color:#0B5ED7;
+
+    margin:0 20px;
+
+}
+/* ============================= */
+/* Dropdown */
+/* ============================= */
+
+.dropdown-group{
+    margin-bottom:20px;
+}
+
+.dropdown-label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:#374151;
+}
+
+.required-star{
+    color:#dc2626;
+    margin-left:4px;
+}
+
+.dropdown-select{
     width:100%;
+}
+
+/* ============================= */
+/* Result Card */
+/* ============================= */
+
+.result-card{
+
+    margin-top:30px;
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.result-header{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+.result-header h2{
+
+    color:#0B5ED7;
+
+    margin-bottom:10px;
+
+}
+
+.result-header h3{
+
+    font-size:34px;
+
+    margin-bottom:8px;
+
+}
+
+.result-header h4{
+
+    color:#16a34a;
+
+}
+
+/* ============================= */
+/* Analysis Grid */
+/* ============================= */
+
+.analysis-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:15px;
+
+    margin-bottom:25px;
+
+}
+
+.info-box{
+
+    background:#f8fafc;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+}
+
+.info-box span{
+
+    display:block;
+
+    color:#666;
+
+    margin-bottom:8px;
+
+    font-size:14px;
+
+}
+
+.info-box strong{
+
+    font-size:20px;
+
+}
+
+/* ============================= */
+/* Recommendation Box */
+/* ============================= */
+
+.recommendation-box{
+
+    background:#eef8ff;
+
+    border-left:5px solid #0B5ED7;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    margin-bottom:25px;
+
+}
+
+.recommendation-box h3{
+
+    margin-bottom:10px;
+
+}
+
+/* ============================= */
+/* Recommendation Cards */
+/* ============================= */
+
+.recommendation-list{
+
+    margin-top:20px;
+
+}
+
+.recommendation-card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#f8fafc;
+
+    border-radius:12px;
+
+    padding:18px;
+
+    margin-bottom:15px;
+
+    transition:.25s;
+
+}
+
+.recommendation-card:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.recommendation-rank{
+
+    font-size:32px;
+
+    width:70px;
+
+    text-align:center;
+
+}
+
+.recommendation-details{
+
+    flex:1;
+
+}
+
+.recommendation-details h4{
+
+    margin-bottom:5px;
+
+    color:#111827;
+
+}
+
+.recommendation-details p{
+
+    color:#666;
+
+    font-size:14px;
+
+}
+
+.recommendation-score{
+
+    text-align:right;
+
+    font-size:15px;
+
+}
+
+/* ============================= */
+/* Mobile */
+/* ============================= */
+
+@media(max-width:768px){
+
+    .search-card{
+
+        padding:20px;
+
+    }
+
+    .analysis-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .train-route{
+
+        flex-direction:column;
+
+        gap:20px;
+
+    }
+
+    .route-arrow{
+
+        transform:rotate(90deg);
+
+    }
+
+    .recommendation-card{
+
+        flex-direction:column;
+
+        text-align:center;
+
+        gap:12px;
+
+    }
+
+    .recommendation-score{
+
+        text-align:center;
+
+    }
 
 }
