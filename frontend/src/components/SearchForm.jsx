@@ -20,7 +20,9 @@ function SearchForm() {
             allowMixedClass
         };
 
-        console.log(journeyRequest);
+        console.log("========== Journey Request ==========");
+console.table(journeyRequest);
+console.log("=====================================");
     }
 
     return (
