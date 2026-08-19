@@ -4,35 +4,44 @@ function StationDropdown({
     stations,
     onChange
 }) {
-    return (
-        <div style={{ marginTop: "15px" }}>
 
-            <label>
-                <strong>{label}</strong>
+    return (
+
+        <div className="dropdown-group">
+
+            <label className="dropdown-label">
+
+                {label}
+
+                <span className="required-star">
+                    *
+                </span>
+
             </label>
 
-            <br /><br />
-
             <select
+                className="dropdown-select"
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                style={{
-                    width: "100%",
-                    padding: "10px"
-                }}
             >
+
                 {stations.map((station) => (
+
                     <option
                         key={station.sequence}
                         value={station.code}
                     >
-                        {station.code} - {station.name}
+                        {station.code} — {station.name}
                     </option>
+
                 ))}
+
             </select>
 
         </div>
+
     );
+
 }
 
 export default StationDropdown;

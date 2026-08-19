@@ -1,8 +1,18 @@
 import { useState } from "react";
 import { createJourneyRequest } from "../services/journeyService";
 import { getTrainSchedule } from "../services/backendApi";
+import { validateJourney } from "../algorithms/journeyValidator";
+import { calculateJourneyDistance } from "../algorithms/journeyDistance";
+import { calculateSeatProbability } from "../algorithms/seatProbability";
+import { getRecommendation } from "../algorithms/recommendationEngine";
+import { optimizeJourney } from "../algorithms/optimizer";
+
+import TrainInfo from "./TrainInfo";
+import StationDropdown from "./StationDropdown";
+import ResultCard from "./ResultCard";
 
 function SearchForm() {
+
     const [trainNumber, setTrainNumber] = useState("");
     const [boardingStation, setBoardingStation] = useState("");
     const [destinationStation, setDestinationStation] = useState("");
@@ -10,51 +20,34 @@ function SearchForm() {
     const [travelClass, setTravelClass] = useState("2A");
     const [allowMixedClass, setAllowMixedClass] = useState(false);
 
+    const [train, setTrain] = useState(null);
     const [trainRoute, setTrainRoute] = useState([]);
-    const [trainName, setTrainName] = useState("");
+
+    const [result, setResult] = useState(null);
 
     async function handleAnalyze() {
 
-        if (trainNumber.trim() === "") {
+        if (!trainNumber.trim()) {
             alert("Please enter Train Number");
-            return;
-        }
-
-        if (!/^\d+$/.test(trainNumber)) {
-            alert("Train Number must contain only numbers");
             return;
         }
 
         try {
 
-            const train = await getTrainSchedule(trainNumber);
+            const trainData = await getTrainSchedule(trainNumber);
 
-            setTrainName(train.trainName);
-            setTrainRoute(train.route);
+            setTrain(trainData);
+            setTrainRoute(trainData.route);
 
-            if (train.route.length > 0) {
-                setBoardingStation(train.route[0].code);
-                setDestinationStation(train.route[train.route.length - 1].code);
+            if (trainData.route.length > 0) {
+
+                setBoardingStation(trainData.route[0].code);
+
+                setDestinationStation(
+                    trainData.route[trainData.route.length - 1].code
+                );
+
             }
-
-            console.log("========== Journey Request ==========");
-
-            const journeyRequest = createJourneyRequest({
-                trainNumber,
-                boardingStation,
-                destinationStation,
-                journeyDate,
-                travelClass,
-                allowMixedClass
-            });
-
-            console.table(journeyRequest);
-
-            console.log("========== Train Details ==========");
-            console.log(train);
-
-            console.log("========== Train Route ==========");
-            console.table(train.route);
 
         } catch (error) {
 
@@ -62,9 +55,68 @@ function SearchForm() {
             alert("Unable to fetch train details.");
 
         }
+
+    }
+
+    function handleFindJourney() {
+
+        if (!journeyDate) {
+
+            alert("Please select Journey Date");
+            return;
+
+        }
+
+        const validation = validateJourney(
+            trainRoute,
+            boardingStation,
+            destinationStation
+        );
+
+        if (!validation.valid) {
+
+            alert(validation.message);
+            return;
+
+        }
+
+        const distance = calculateJourneyDistance(
+            validation.boardingIndex,
+            validation.destinationIndex
+        );
+
+        const probability = calculateSeatProbability(distance);
+
+        const recommendation = getRecommendation(
+            probability.probability
+        );
+
+        const topRecommendations = optimizeJourney(
+            trainRoute,
+            destinationStation
+        );
+
+        createJourneyRequest({
+            trainNumber,
+            boardingStation,
+            destinationStation,
+            journeyDate,
+            travelClass,
+            allowMixedClass
+        });
+
+        setResult({
+            distance,
+            probability: probability.probability,
+            level: probability.level,
+            recommendation,
+            topRecommendations
+        });
+
     }
 
     return (
+
         <div className="search-card">
 
             <h1>Emergency Railway Journey Assistant</h1>
@@ -79,45 +131,28 @@ function SearchForm() {
             />
 
             <button onClick={handleAnalyze}>
-                Analyze Journey
+                Load Train
             </button>
 
-            {trainName && (
-                <h3 style={{ marginTop: "20px" }}>
-                    {trainName}
-                </h3>
-            )}
+            <TrainInfo train={train} />
 
             {trainRoute.length > 0 && (
+
                 <>
 
-                    <select
+                    <StationDropdown
+                        label="Boarding Station"
                         value={boardingStation}
-                        onChange={(e) => setBoardingStation(e.target.value)}
-                    >
-                        {trainRoute.map((station) => (
-                            <option
-                                key={station.sequence}
-                                value={station.code}
-                            >
-                                {station.code} - {station.name}
-                            </option>
-                        ))}
-                    </select>
+                        stations={trainRoute}
+                        onChange={setBoardingStation}
+                    />
 
-                    <select
+                    <StationDropdown
+                        label="Destination Station"
                         value={destinationStation}
-                        onChange={(e) => setDestinationStation(e.target.value)}
-                    >
-                        {trainRoute.map((station) => (
-                            <option
-                                key={station.sequence}
-                                value={station.code}
-                            >
-                                {station.code} - {station.name}
-                            </option>
-                        ))}
-                    </select>
+                        stations={trainRoute}
+                        onChange={setDestinationStation}
+                    />
 
                     <input
                         type="date"
@@ -146,11 +181,20 @@ function SearchForm() {
 
                     </div>
 
+                    <button onClick={handleFindJourney}>
+                        Find Best Journey
+                    </button>
+
                 </>
+
             )}
 
+            <ResultCard result={result} />
+
         </div>
+
     );
+
 }
 
 export default SearchForm;

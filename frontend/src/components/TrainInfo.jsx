@@ -5,21 +5,42 @@ function TrainInfo({ train }) {
     }
 
     return (
-        <div className="train-info">
+        <div className="train-card">
 
-            <h2>{train.trainName}</h2>
+            <div className="train-header">
+                <h2>🚆 {train.trainName}</h2>
+                <span className="train-number">
+                    {train.trainNumber}
+                </span>
+            </div>
 
-            <p>
-                <strong>Train Number:</strong> {train.trainNumber}
-            </p>
+            <div className="train-route">
 
-            <p>
-                <strong>Source:</strong> {train.source.code} - {train.source.name}
-            </p>
+                <div className="station-box">
 
-            <p>
-                <strong>Destination:</strong> {train.destination.code} - {train.destination.name}
-            </p>
+                    <h4>Source</h4>
+
+                    <strong>{train.source.code}</strong>
+
+                    <p>{train.source.name}</p>
+
+                </div>
+
+                <div className="route-arrow">
+                    ➜
+                </div>
+
+                <div className="station-box">
+
+                    <h4>Destination</h4>
+
+                    <strong>{train.destination.code}</strong>
+
+                    <p>{train.destination.name}</p>
+
+                </div>
+
+            </div>
 
         </div>
     );
