@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createJourneyRequest } from "../services/journeyService";
 
 function SearchForm() {
 
@@ -31,10 +32,7 @@ function SearchForm() {
             return;
         }
 
-        if (
-            boardingStation.toUpperCase() ===
-            destinationStation.toUpperCase()
-        ) {
+        if (boardingStation.toUpperCase() === destinationStation.toUpperCase()) {
             alert("Boarding and Destination stations cannot be the same");
             return;
         }
@@ -44,14 +42,14 @@ function SearchForm() {
             return;
         }
 
-        const journeyRequest = {
+        const journeyRequest = createJourneyRequest({
             trainNumber,
-            boardingStation: boardingStation.toUpperCase(),
-            destinationStation: destinationStation.toUpperCase(),
+            boardingStation,
+            destinationStation,
             journeyDate,
             travelClass,
-            allowMixedClass,
-        };
+            allowMixedClass
+        });
 
         console.log("========== Journey Request ==========");
         console.table(journeyRequest);
