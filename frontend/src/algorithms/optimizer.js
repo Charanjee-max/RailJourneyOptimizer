@@ -3,7 +3,7 @@ import { calculateJourneyDistance } from "./journeyDistance";
 import { calculateSeatProbability } from "./seatProbability";
 import { calculateScore } from "./scoringEngine";
 
-export function optimizeJourney(route, destinationCode) {
+export function optimizeJourney(route, destinationCode, train = {}) {
 
     const options = generateJourneyOptions(route, destinationCode);
 
@@ -16,10 +16,12 @@ export function optimizeJourney(route, destinationCode) {
 
         const probability = calculateSeatProbability(distance);
 
-        const score = calculateScore(
+        const scoreResult = calculateScore({
             distance,
-            probability.probability
-        );
+            probability: probability.probability,
+            boardingStation: option.boarding.code,
+            trainType: train.type || train.category || ""
+        });
 
         return {
             boarding: option.boarding,
@@ -27,7 +29,8 @@ export function optimizeJourney(route, destinationCode) {
             distance,
             probability: probability.probability,
             level: probability.level,
-            score: score.score
+            score: scoreResult.score,
+            breakdown: scoreResult.breakdown
         };
 
     });
@@ -35,4 +38,5 @@ export function optimizeJourney(route, destinationCode) {
     results.sort((a, b) => b.score - a.score);
 
     return results.slice(0, 5);
+
 }

@@ -93,7 +93,8 @@ function SearchForm() {
 
         const topRecommendations = optimizeJourney(
             trainRoute,
-            destinationStation
+            destinationStation,
+            train
         );
 
         createJourneyRequest({
